@@ -18,7 +18,7 @@ export const InputComp = props => {
         keyboardType={'default'}
         onChangeText={onChangeText}
       />
-      {error && <Text style={styles.error}>* Required</Text>}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

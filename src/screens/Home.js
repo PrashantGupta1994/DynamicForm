@@ -19,12 +19,17 @@ export const Home = props => {
     dispatch(saveFormData(params));
   };
 
-  const onNextClick = () => {
+  const onNextClick = () => { 
     currentPage.forEach(element => {
-      if (element.isRequired && !formPayload[element.payloadKey]) {
-        element.error = '* Reuired';
+      const value = formPayload[element.payloadKey];
+      if (element.isRequired && !value) {
+        element.error = 'Required';
       } else {
-        element.error = null;
+        if (value < element.min || value > element.max) {
+          element.error = `value must be between ${element.min} and ${element.max}`;
+        } else {
+          element.error = null;
+        }
       }
     });
     const hasError = currentPage.some(item => item.error);

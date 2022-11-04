@@ -27,7 +27,7 @@ export const DropdownComp = props => {
         value={props.formPayload[payloadKey]}
         onChange={onValueChange}
       />
-      {error && <Text style={styles.error}>* Required</Text>}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
