@@ -1,0 +1,6 @@
+export const ELEMENT_TYPE = {
+  INPUT: 'INPUT',
+  DROPDOWN: 'DROPDOWN',
+  CHECKBOX: 'CHECKBOX',
+  MODAL: 'MODAL',
+};
