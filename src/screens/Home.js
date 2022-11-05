@@ -1,21 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {DropdownComp} from '../components/DropdownComp';
 import {InputComp} from '../components/InputComp';
 import {ELEMENT_TYPE} from '../helper/utils';
-import {saveFormData, onButtonClick} from '../redux/actions';
+import { saveFormData, onButtonClick, onPageDataChange } from '../redux/actions';
 
 export const Home = props => {
   const dispatch = useDispatch();
-  const {formData, step, formPayload} = useSelector(state => state);
-  let currentPage = formData[step];
-  const [fakeRenderer, setFakeRenderer] = useState(false);
+  const { formData, step, pageData, formPayload} = useSelector(state => state);
   const lastPage = step === formData.length - 1;
 
-  const onFormValueChange = (data, payloadKey) => {
-    const params = {value: data, payloadKey: payloadKey};
+  let currentPage = pageData.get(step) || formData[step];
+
+  const onFormValueChange = (data, payloadKey, item) => {
+    if (item?.onSelection) {
+      const hasItem = currentPage.some(elm => elm.id === item.onSelection.id);
+      !hasItem ? currentPage.push(item.onSelection) : null
+    } else if (item?.parentId) {
+      const parentElmIndex = currentPage.findIndex(elm => elm.id === item.parentId);
+      currentPage = currentPage.slice(0, parentElmIndex + 1);
+    }
+    dispatch(onPageDataChange(pageData.set(step, currentPage)));
+
+    const params = { value: data, payloadKey: payloadKey };
     dispatch(saveFormData(params));
   };
 
@@ -34,7 +43,7 @@ export const Home = props => {
     });
     const hasError = currentPage.some(item => item.error);
     if (hasError) {
-      setFakeRenderer(!fakeRenderer);
+      dispatch(onPageDataChange(pageData.set(step, currentPage)));
     } else {
       lastPage ? console.log(formPayload) : dispatch(onButtonClick(1));
     }

@@ -6,7 +6,9 @@ export const DropdownComp = props => {
   const {title, payloadKey, placeholder, values, error} = props.item;
 
   const onValueChange = item => {
-    props.onValueChange ? props.onValueChange(item.value, payloadKey) : null;
+    props.onValueChange
+      ? props.onValueChange(item.value, payloadKey, item)
+      : null;
   };
 
   return (
@@ -34,7 +36,7 @@ export const DropdownComp = props => {
 
 const styles = StyleSheet.create({
   conatiner: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
   },
   title: {

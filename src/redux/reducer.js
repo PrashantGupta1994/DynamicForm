@@ -53,26 +53,72 @@ const initialState = {
         payloadKey: 'gender',
         placeholder: 'Select',
         values: [
-          {id: 1, value: 'Male'},
           {
-            id: 2,
+            id: 10041,
+            value: 'Male',
+            parentId: 1004
+          },
+          {
+            id: 10042,
             value: 'Female',
+            onSelection: {
+              id: 100421,
+              parentId: 1004,
+              title: 'Are you pregnant?',
+              type: 'DROPDOWN',
+              payloadKey: 'pregnant',
+              placeholder: 'Select',
+              values: [
+                {
+                  id: 1004211,
+                  value: 'Yes',
+                  parentId: 100421
+                },
+                {
+                  id: 1004212,
+                  value: 'No',
+                  parentId: 100421,
+                  onSelection: {
+                    id: 10042121,
+                    parentId: 1004212,
+                    title: 'Are you taking any contraceptives?',
+                    type: 'DROPDOWN',
+                    payloadKey: 'contraceptives',
+                    placeholder: 'Select',
+                    values: [
+                      { id: 1, value: 'Yes' },
+                      { id: 2, value: 'No' },
+                    ],
+                    isRequired: true,
+                  }
+                },
+              ],
+              isRequired: true,
+            }
           },
         ],
         isRequired: true,
       },
     ],
   ],
+  pageData: new Map(),
   formPayload: {},
 };
 
 export default (state = initialState, action) => {
-  const {type, payload} = action;
+  const { type, payload } = action;
 
   switch (type) {
     case ACTION_TYPE.SUCCESS:
       //
       break;
+
+    case ACTION_TYPE.UPDATE_PAGE_DATA: {
+      return {
+        pageData: payload.pageData,
+        ...state
+      }
+    }
 
     case ACTION_TYPE.FORM_GO_BACK: {
       return {

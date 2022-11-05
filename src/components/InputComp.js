@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, TextInput, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 export const InputComp = props => {
   const {title, placeholder, payloadKey, error} = props.item;
@@ -10,10 +11,11 @@ export const InputComp = props => {
 
   return (
     <View style={styles.conatiner}>
-      <Text style={styles.title}>{title}</Text>
       <TextInput
+        label={title}
+        mode={'outlined'}
         style={styles.input}
-        value={props.formPayload[payloadKey]}
+        value={props.formPayload[payloadKey] || ''}
         placeholder={placeholder || ''}
         keyboardType={'default'}
         onChangeText={onChangeText}
@@ -31,12 +33,9 @@ const styles = StyleSheet.create({
   conatiner: {
     padding: 12,
   },
-  input: {
-    height: 50,
-    padding: 12,
-  },
+  input: {},
   error: {
-    fontSize: 10,
+    fontSize: 12,
     color: 'red',
   },
 });
