@@ -6,6 +6,8 @@ export const InputComp = props => {
   const {title, placeholder, payloadKey, error} = props.item;
 
   const onChangeText = value => {
+    // check if `onValueChange` cb is available to send -
+    // value, payloadKey
     props.onValueChange ? props.onValueChange(value, payloadKey) : null;
   };
 

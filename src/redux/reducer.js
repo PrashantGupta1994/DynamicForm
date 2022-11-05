@@ -48,7 +48,7 @@ const initialState = {
     [
       {
         id: 1004,
-        title: 'Gender',
+        title: 'What is your biological gender at birth?',
         type: 'DROPDOWN',
         payloadKey: 'gender',
         placeholder: 'Select',

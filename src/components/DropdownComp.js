@@ -6,6 +6,8 @@ export const DropdownComp = props => {
   const {title, payloadKey, placeholder, values, error} = props.item;
 
   const onValueChange = item => {
+    // check if `onValueChange` cb is available to send -
+    // value, payloadKey, and child element to draw
     props.onValueChange
       ? props.onValueChange(item.value, payloadKey, item)
       : null;
@@ -15,6 +17,7 @@ export const DropdownComp = props => {
     <View style={styles.conatiner}>
       <Text style={styles.title}>{title}</Text>
       <Dropdown
+        style={styles.dropdown}
         renderItem={(item, selected) => {
           return (
             <Text style={selected ? styles.bold : styles.normal}>
@@ -39,6 +42,12 @@ const styles = StyleSheet.create({
     // flex: 1,
     padding: 20,
   },
+  dropdown: {
+    borderWidth: 1,
+    borderRadius: 8,
+    marginTop: 10,
+    padding: 10,
+  },
   title: {
     fontSize: 18,
     color: 'black',
@@ -52,7 +61,12 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   bold: {
+    padding: 8,
+    fontSize: 16,
     fontWeight: 'bold',
   },
-  normal: {},
+  normal: {
+    padding: 8,
+    fontSize: 16,
+  },
 });
